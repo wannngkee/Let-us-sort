@@ -2,7 +2,7 @@
   <header class="navbar">
         <div class="head">
           <section class="title">
-            <h3>Sort the Waste Game</h3>
+            <h3>Sort Smart</h3>
           </section>
         </div>
   </header>
@@ -16,7 +16,7 @@
     height: 80px;
     width: 100%;
     padding: 20px;
-    background-color: transparent
+    /* background-color: aliceblue */
 }
 /* .title{
   color: white;

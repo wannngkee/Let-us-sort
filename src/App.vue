@@ -1,34 +1,43 @@
 <template>
     <body>
       <Header />
-      <!-- <div class='modalSection'>
-      <Modal /> -->
-      <!-- </div> -->
-      <DragnDrop/>
+      <div class='centered' v-if="!active">
+      <Modal :active="active" @toggleStart="toggleStart"/>
+      </div>
+      <div class="main" v-else>
+      <DragnDrop />
+      </div>
     </body>
-
-
   <main>
   </main>
 </template>
 
 <script setup>
+import {ref, computed } from 'vue'
 import Header from './components/Header.vue'
 import Modal from './components/Modal.vue';
 import DragnDrop from './components/DragnDrop.vue'
+let active = ref(false);
+const toggleStart = ()=> { 
+  active.value = !active.value
+}
 </script>
-
 
 <style>
 @import './assets/base.css';
-.modalSection {
-  margin: auto;
-  display: flex;
+body{
+  position: relative;
+}
+.centered {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
-body{
+/* body{
   background: #17b5e9 url(./assets/images/bg.png);
-}
+} */
 
 
 /* #app {

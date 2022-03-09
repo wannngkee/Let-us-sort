@@ -1,98 +1,55 @@
 <template>
-  <div class="modal modal-sm active">
-    <div class="modal-overlay" />
-    <div class="modal-container">
-      <div class="modal-header">
-        <div class="modal-title h4">Sort Waste</div>
-      </div>
-      <div class="modal-body">
-        <div class="content h6">
-           Drag and drop the trash into the correct list. Sort them quickly for a better score!
+  <div class="card">
+        <div class="content">
+           Drag and drop the trash into the correct bin. Sort them quickly for a better score!
         </div>
-      </div>
-      <div class="modal-footer">
-      <!-- <img src={require('../assets/poubelles.png')} onClick={imageClick} alt="" /> -->
-        <button
-          class="btn btn-primary" @click="handleClick"
-        > Start Game
-        </button>
-      </div>
-    </div>
+        <button class="startBtn" @click="handleClick"> Start Game</button>
   </div>
 </template>
 
-<script>
-export default {
-  methods: {
-    handleClick() {
-      console.log('click')
-    }
-  }
+<script setup>
+import { defineProps, defineEmits } from "vue";
+const props = defineProps({active: Boolean})
+const emits = defineEmits(["toggleStart"])
+const handleClick = ()=> {
+    emits("toggleStart")
 }
 </script>
 
 <style scoped>
-  .btn:active, .btn.active {
-  background: #4b48d6;
-  border-color: #3634d2;
-  color: #fff;
-  text-decoration: none;
+.card{
+    margin: 0 auto;
+    padding: 30px 40px 50px;
+    font-size: 1.4rem;
+    border-radius: 40px;
+    min-height: 18rem;
+    /* background-color: #f1c40f; */
+    border: 6px solid #222;
+    border-left: 10px solid #222;
+    border-bottom: 10px solid #222;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }
 
-.btn.btn-primary:active, .btn.btn-primary.active {
-  background: #3a38d2;
-  border-color: #302ecd;
-  color: #fff;
+.startBtn{
+    display: block;
+    width: 100%;
+    height: 40px;;
+    /* padding: 20px; */
+    border: 0;
+    border-radius: 4px;
+    font-size: 1em;
+    color: white;
+    background-color: #9265ba;
+    cursor: pointer;
+    box-shadow: 0 6px #704c90;
 }
 
-.btn.btn-primary:focus, .btn.btn-primary:hover {
-  background: #4240d4;
-  border-color: #3634d2;
-  color: #fff;
-}
-
-.btn.btn-primary {
-  background: #38006b;
-  border-color: #4b48d6;
-  color: #fff;
-}
-
-.btn:focus, .btn:hover {
-  background: #f1f1fc;
-  border-color: #4b48d6;
-  text-decoration: none;
-}
-
-.btn {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  background: #fff;
-  border: .05rem solid #5755d9;
-  border-radius: .1rem;
-  background-color: #38006b;
-  cursor: pointer;
-  display: inline-block;
-  font-size: .8rem;
-  height: 1.8rem;
-  line-height: 1.2rem;
-  outline: none;
-  padding: .25rem .4rem;
-  text-align: center;
-  text-decoration: none;
-  transition: background .2s, border .2s, box-shadow .2s, color .2s;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  vertical-align: middle;
-  white-space: nowrap;
-}
-
-.btn.btn-primary:focus, .btn.btn-primary:hover {
-  background: #fff;
-  border-color: #3634d2;
-  color: #000;
+.startBtn:hover {
+    transform: translateY(4px);
+    box-shadow: 0 2px #704c90;
 }
 
 </style>
