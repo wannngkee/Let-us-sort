@@ -149,7 +149,7 @@ const onDrop = (event, list) => {
 .drop-zone {
   width: 15%;
   margin: 50px auto;
-  background: #fff;
+  background: aliceblue;
   border-radius: 0.2rem;
   box-shadow: 0 0.1rem 0.3rem rgb(48 55 66 / 30%);
   padding: 10px;
