@@ -1,11 +1,11 @@
 <template>
     <body>
-      <Header />
-      <div class='centered' v-if="!active">
-      <Modal :active="active" @toggleStart="toggleStart"/>
+      <Header :isActive="isActive" :countdown="countdown" :score="score"/>
+      <div class='centered' v-if="!isActive || countdown===0">
+      <Modal :isGameComplete="isGameComplete" :countdown="countdown" @toggleStart="toggleStart"/>
       </div>
       <div class="main" v-else>
-      <DragnDrop />
+      <DragnDrop @modifyScore = "modifyScore"/>
       </div>
     </body>
   <main>
@@ -17,9 +17,35 @@ import {ref, computed } from 'vue'
 import Header from './components/Header.vue'
 import Modal from './components/Modal.vue';
 import DragnDrop from './components/DragnDrop.vue'
-let active = ref(false);
+let isActive = ref(false);
+let countdown = ref(60);
+let isGameComplete = ref(false);
+let score = ref(0);
 const toggleStart = ()=> { 
-  active.value = !active.value
+  isActive.value = !isActive.value;
+  countdownTimer()
+}
+const countdownTimer = ()=> {
+                if(countdown.value > 0) {
+                    setTimeout(() => {
+                        countdown.value -= 1
+                        countdownTimer()
+                    }, 1000)
+                }
+                if (countdown.value === 0){
+                  quitGame()
+                  isGameComplete.value = true;
+                  isActive.value = false;
+                  score.value = 0;
+                }
+            }
+const quitGame = ()=>{
+  countdown.value = 60;
+  isActive.value = false;
+} 
+
+const modifyScore = (val) =>{
+  score.value = val
 }
 </script>
 
@@ -27,72 +53,15 @@ const toggleStart = ()=> {
 @import './assets/base.css';
 body{
   position: relative;
+  /*
+   background: #17b5e9 url(./assets/images/bg.png);
+  */
 }
+
 .centered {
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
 }
-
-/* body{
-  background: #17b5e9 url(./assets/images/bg.png);
-} */
-
-
-/* #app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-
-  font-weight: normal;
-} */
-
-/* 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-}
-
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
-}
-
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
-
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
-
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-} */
 </style>

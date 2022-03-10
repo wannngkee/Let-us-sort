@@ -1,5 +1,6 @@
 <template>
 <div class="container">
+  <!-- <span>{{currentScore}}</span> -->
 <div class="drop-zone" 
      id="bench"
       @drop="onDrop($event,'bench')"
@@ -68,9 +69,10 @@
 </template>
 
 <script setup>
-import {ref} from 'vue'
+import {ref,defineEmits, computed, watch } from 'vue';
 import { PRODUCTS, TYPES } from '../utils/data';
 import {shuffle} from '../utils/util';
+const emits = defineEmits(["modifyScore"])
 const items = ref(shuffle(PRODUCTS.map(pro => ({...pro, list: 'bench'}))))
 const getList = (list)=> {
     return items.value.filter(item => item.list == list)}
@@ -86,9 +88,9 @@ const onDrop = (event, list)=> {
     const itemID = event.dataTransfer.getData('itemID')
     const item = items.value.find(item => item.id == itemID)
     item.list = list
-    // if item.list == item.type {
-    //   score += 5
-    // }
+    const currentScore = items.value.filter((item) => item.type === item.list)
+    .reduce((sum, record) => sum + 5, 0);
+    emits("modifyScore", currentScore)
   }
 </script>
 
@@ -103,11 +105,11 @@ justify-content: space-between
   width: 15%;
   margin: 50px auto;
   background: #fff;
-  border-radius: 0.1rem;
-  box-shadow: 0 0.05rem 0.2rem rgb(48 55 66 / 30%);
+  border-radius: 0.2rem;
+  box-shadow: 0 0.1rem 0.3rem rgb(48 55 66 / 30%);
   padding: 10px;
   height: 30rem;
-  position: relative
+  position: relative;
 }
 
 .drag-el {
@@ -132,7 +134,7 @@ justify-content: space-between
 }
 
 #bench{
-  overflow-y: scroll
+  overflow-y: scroll;
 }
 
 #yellow {
@@ -154,9 +156,7 @@ justify-content: space-between
 .container {
   margin-left: auto;
   margin-right: auto;
-  padding-left: 4.85rem;
-  padding-right: 4.4rem;
-  width: 100%;
+  width: 80%;
 }
 
 </style>

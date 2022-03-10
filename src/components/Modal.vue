@@ -1,15 +1,21 @@
 <template>
   <div class="card">
-        <div class="content">
+        <div class="afterSection" v-show="isGameComplete">
+            <h2>Great Work!</h2>
+        </div>
+        <div v-if="!isGameComplete" class="content">
            Drag and drop the trash into the correct bin. Sort them quickly for a better score!
         </div>
-        <button class="startBtn" @click="handleClick"> Start Game</button>
+        <button class="startBtn" @click="handleClick">{{isGameComplete? "Play Again": "Start Game"}}</button>
   </div>
 </template>
 
 <script setup>
-import { defineProps, defineEmits } from "vue";
-const props = defineProps({active: Boolean})
+import { defineEmits, defineProps } from "vue";
+const props = defineProps({
+  countdown: Number,
+  isGameComplete: Boolean,
+  });
 const emits = defineEmits(["toggleStart"])
 const handleClick = ()=> {
     emits("toggleStart")
@@ -23,11 +29,12 @@ const handleClick = ()=> {
     font-size: 1.4rem;
     border-radius: 40px;
     min-height: 18rem;
+    background-color:white;
     /* background-color: #f1c40f; */
     border: 6px solid #222;
     border-left: 10px solid #222;
     border-bottom: 10px solid #222;
-    max-width: 500px;
+    width: 500px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -50,6 +57,10 @@ const handleClick = ()=> {
 .startBtn:hover {
     transform: translateY(4px);
     box-shadow: 0 2px #704c90;
+}
+
+.afterSection{
+    text-align: center
 }
 
 </style>
