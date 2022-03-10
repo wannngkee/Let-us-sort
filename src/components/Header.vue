@@ -1,11 +1,11 @@
 <template>
   <header class="navbar">
-        <div class="head">
-          <section class="right" v-if="isActive && countdown !== 0">
-            <div>Time: {{props.countdown}}s</div>
-            <div>Score: {{props.score}}</div>
-          </section>
-        </div>
+    <div class="head">
+      <section class="right" v-if="isActive && countdown !== 0">
+        <div>Time: {{ props.countdown }}s</div>
+        <div>Score: {{ props.score }}</div>
+      </section>
+    </div>
   </header>
 </template>
 
@@ -15,20 +15,19 @@ const props = defineProps({
   countdown: Number,
   isActive: Boolean,
   score: Number,
-  });
+});
 </script>
 
 <style scoped>
 .navbar {
-    height: 100px;
-    width: 100%;
-    padding: 50px;
-    /* background-color: aliceblue */
+  height: 100px;
+  width: 100%;
+  padding: 50px;
+  /* background-color: aliceblue */
 }
-.right{
+.right {
   position: absolute;
-  right:100px;
-  padding-right:100px;
+  right: 100px;
+  padding-right: 100px;
 }
-
 </style>

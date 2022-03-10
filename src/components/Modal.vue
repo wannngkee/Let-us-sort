@@ -1,12 +1,15 @@
 <template>
   <div class="card">
-        <div class="afterSection" v-show="isGameComplete">
-            <h2>Great Work!</h2>
-        </div>
-        <div v-if="!isGameComplete" class="content">
-           Drag and drop the trash into the correct bin. Sort them quickly for a better score!
-        </div>
-        <button class="startBtn" @click="handleClick">{{isGameComplete? "Play Again": "Start Game"}}</button>
+    <div class="afterSection" v-show="isGameComplete">
+      <h2>Great Work!</h2>
+    </div>
+    <div v-if="!isGameComplete" class="content">
+      Drag and drop the trash into the correct bin. Sort them quickly for a
+      better score!
+    </div>
+    <button class="startBtn" @click="handleClick">
+      {{ isGameComplete ? "Play Again" : "Start Game" }}
+    </button>
   </div>
 </template>
 
@@ -15,52 +18,51 @@ import { defineEmits, defineProps } from "vue";
 const props = defineProps({
   countdown: Number,
   isGameComplete: Boolean,
-  });
-const emits = defineEmits(["toggleStart"])
-const handleClick = ()=> {
-    emits("toggleStart")
-}
+});
+const emits = defineEmits(["toggleStart"]);
+const handleClick = () => {
+  emits("toggleStart");
+};
 </script>
 
 <style scoped>
-.card{
-    margin: 0 auto;
-    padding: 30px 40px 50px;
-    font-size: 1.4rem;
-    border-radius: 40px;
-    min-height: 18rem;
-    background-color:white;
-    /* background-color: #f1c40f; */
-    border: 6px solid #222;
-    border-left: 10px solid #222;
-    border-bottom: 10px solid #222;
-    width: 500px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
+.card {
+  margin: 0 auto;
+  padding: 30px 40px 50px;
+  font-size: 1.4rem;
+  border-radius: 40px;
+  min-height: 18rem;
+  background-color: white;
+  /* background-color: #f1c40f; */
+  border: 6px solid #222;
+  border-left: 10px solid #222;
+  border-bottom: 10px solid #222;
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
-.startBtn{
-    display: block;
-    width: 100%;
-    height: 40px;;
-    /* padding: 20px; */
-    border: 0;
-    border-radius: 4px;
-    font-size: 1em;
-    color: white;
-    background-color: #9265ba;
-    cursor: pointer;
-    box-shadow: 0 6px #704c90;
+.startBtn {
+  display: block;
+  width: 100%;
+  height: 40px;
+  /* padding: 20px; */
+  border: 0;
+  border-radius: 4px;
+  font-size: 1em;
+  color: white;
+  background-color: #9265ba;
+  cursor: pointer;
+  box-shadow: 0 6px #704c90;
 }
 
 .startBtn:hover {
-    transform: translateY(4px);
-    box-shadow: 0 2px #704c90;
+  transform: translateY(4px);
+  box-shadow: 0 2px #704c90;
 }
 
-.afterSection{
-    text-align: center
+.afterSection {
+  text-align: center;
 }
-
 </style>
