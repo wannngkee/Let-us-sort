@@ -1,7 +1,11 @@
 <template>
   <div class="card">
-    <div class="afterSection" v-show="isGameComplete">
-      <h2>Great Work!</h2>
+    <div class="title" v-if="isGameComplete">
+      <h1>Great Work</h1>
+      <h4>Score: {{ props.score }}</h4>
+    </div>
+    <div class="title" v-else>
+      <h1>Sort Smart</h1>
     </div>
     <div v-if="!isGameComplete" class="content">
       Drag and drop the trash into the correct bin. Sort them quickly for a
@@ -18,6 +22,7 @@ import { defineEmits, defineProps } from "vue";
 const props = defineProps({
   countdown: Number,
   isGameComplete: Boolean,
+  score: Number,
 });
 const emits = defineEmits(["toggleStart"]);
 const handleClick = () => {
@@ -34,13 +39,17 @@ const handleClick = () => {
   min-height: 18rem;
   background-color: white;
   /* background-color: #f1c40f; */
-  border: 6px solid #222;
-  border-left: 10px solid #222;
-  border-bottom: 10px solid #222;
+  border: 6px solid #444;
+  border-left: 10px solid #444;
+  border-bottom: 10px solid #444;
   width: 500px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+}
+
+.content {
+  margin: 15px;
 }
 
 .startBtn {
@@ -52,17 +61,27 @@ const handleClick = () => {
   border-radius: 4px;
   font-size: 1em;
   color: white;
-  background-color: #9265ba;
+  background-color: #318ce7;
   cursor: pointer;
-  box-shadow: 0 6px #704c90;
+  box-shadow: 0 6px #2975c2;
 }
 
 .startBtn:hover {
   transform: translateY(4px);
-  box-shadow: 0 2px #704c90;
+  box-shadow: 0 2px #2975c2;
 }
 
-.afterSection {
+.title {
   text-align: center;
+}
+
+h1 {
+  flex-shrink: 0;
+  width: 100%;
+  color: white;
+  letter-spacing: 5px;
+  text-shadow: 0px 0px 2px #222222;
+  text-align: center;
+  text-shadow: 2px 1px 0 #222, 3px 3px 0 #222, -2px 1px 0 #222, 1px -1px 0 #222;
 }
 </style>
