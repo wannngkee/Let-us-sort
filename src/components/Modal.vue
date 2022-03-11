@@ -53,22 +53,9 @@ const handleClick = () => {
 }
 
 .startBtn {
-  display: block;
   width: 100%;
   height: 40px;
   /* padding: 20px; */
-  border: 0;
-  border-radius: 4px;
-  font-size: 1em;
-  color: white;
-  background-color: #318ce7;
-  cursor: pointer;
-  box-shadow: 0 6px #2975c2;
-}
-
-.startBtn:hover {
-  transform: translateY(4px);
-  box-shadow: 0 2px #2975c2;
 }
 
 .title {

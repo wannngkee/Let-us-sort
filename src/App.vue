@@ -1,130 +1,111 @@
 <template>
   <body>
-    <header v-if="isActive && countdown !== 0">
-      <section class="left">
-        <h1>{{ countdown }}s</h1>
-      </section>
-      <section class="middle">
-        <div>
-          <h1 class="score">Score: {{ score }}</h1>
-        </div>
-      </section>
-      <section class="right">
-        <button class="quitBtn" @click="quitGame">Quit Game</button>
-      </section>
+    <header>
+      <div class="title">
+        <a href="#home" class="navItem"><h1>Let's sort</h1></a>
+      </div>
+      <div class="nav">
+        <a
+          href="#home"
+          class="navItem"
+          :id="selected === 0 ? 'selected' : ''"
+          @click="changeSelected(0)"
+          >Home</a
+        >
+        <a
+          href="#accumulator"
+          class="navItem"
+          :id="selected === 1 ? 'selected' : ''"
+          @click="changeSelected(1)"
+          >Accumulator</a
+        >
+        <a
+          href="#game"
+          class="navItem"
+          :id="selected === 2 ? 'selected' : ''"
+          @click="changeSelected(2)"
+          >Game</a
+        >
+      </div>
     </header>
-    <div class="centered" v-if="!isActive || countdown === 0">
-      <Modal
-        :isGameComplete="isGameComplete"
-        :countdown="countdown"
-        :score="score"
-        @toggleStart="toggleStart"
-      />
-    </div>
-    <div class="main" v-else>
-      <DragnDrop @modifyScore="modifyScore" />
-    </div>
+    <section id="home">
+      <Home />
+    </section>
+    <section id="accumulator">
+      <Accumulator />
+    </section>
+    <section id="game">
+      <Game />
+    </section>
   </body>
-  <main></main>
 </template>
 
 <script setup>
-import { ref, computed, watch } from "vue";
-import Modal from "./components/Modal.vue";
-import DragnDrop from "./components/DragnDrop.vue";
-let isActive = ref(false);
-let countdown = ref(60);
-let isGameComplete = ref(false);
-let score = ref(0);
-const toggleStart = () => {
-  isActive.value = !isActive.value;
-  score.value = 0;
-  countdownTimer();
+import { ref } from "vue";
+import Game from "./Game.vue";
+import Home from "./Home.vue";
+import Accumulator from "./Accumulator.vue";
+const selected = ref(0);
+const changeSelected = (i) => {
+  selected.value = i;
+  // document.getElementsByClassName("select-highlight")[0].style.top =
+  //   i * 50 + 5 + "px";
 };
-const countdownTimer = () => {
-  if (countdown.value > 0) {
-    setTimeout(() => {
-      countdown.value -= 1;
-      countdownTimer();
-    }, 1000);
-  }
-  if (countdown.value === 0) {
-    quitGame();
-    isGameComplete.value = true;
-    isActive.value = false;
-  }
-};
-
-const quitGame = () => {
-  countdown.value = 60;
-  isActive.value = false;
-  isGameComplete.value = false;
-};
-
-const modifyScore = (val) => {
-  score.value = val;
-};
-
-watch(score, () => {
-  if (score.value === 100) {
-    isActive.value = false;
-    isGameComplete.value = true;
-  }
+window.addEventListener("scroll", () => {
+  const sections = document.querySelectorAll("section");
+  sections.forEach((sec, index) => {
+    const sectionTop = sec.offsetTop;
+    let scrollY = window.pageYOffset;
+    if (scrollY >= sectionTop) {
+      selected.value = index;
+    }
+  });
 });
 </script>
 
 <style>
+/* body {
+  background-image: url(./assets/images/bg.png);
+} */
 @import "./assets/base.css";
-body {
-  position: relative;
-  /* background-color: aliceblue; */
-  background: #17b5e9 url(./assets/images/bg.png);
-}
-
-.centered {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.quitBtn {
-  display: block;
-  margin-top: 25px;
-  height: 30px;
-  border: 0;
-  border-radius: 4px;
-  font-size: 1em;
-  color: white;
-  background-color: #318ce7;
-  cursor: pointer;
-  box-shadow: 0 6px #2975c2;
-}
-
-.quitBtn:hover {
-  transform: translateY(4px);
-  box-shadow: 0 2px #2975c2;
-}
-
 header {
-  height: 100px;
   width: 100%;
-  padding: 50px 150px;
+  /* height: 40px; */
+  display: flex;
+  padding: 0px 50px;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  z-index: 999;
+}
+.title {
+  font-size: 1.5rem;
+}
+
+.navItem {
+  color: #222;
+  font-weight: bold;
+}
+.navItem:hover {
+  color: #f2a51a;
+}
+.navItem#selected {
+  color: #f2a51a;
+}
+
+.nav {
+  margin: 10px 50px;
   display: flex;
   justify-content: space-between;
-  /* background-color: aliceblue */
-}
-/* .middle {
-  position: absolute;
-  left: 50%;
-} */
-
-.score {
-  font-size: 2rem;
+  width: 25%;
+  font-style: italic;
 }
 
-.left {
-  margin-top: 25px;
-  margin-left: 45px;
+#accumulator {
+  height: 100vh;
+}
+
+.caption {
 }
 </style>
