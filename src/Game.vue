@@ -1,17 +1,17 @@
 <template>
   <body class="game">
     <header v-if="isActive && countdown !== 0">
-      <section class="left">
+      <div class="left">
         <h1>{{ countdown }}s</h1>
-      </section>
-      <section class="middle">
+      </div>
+      <div class="middle">
         <div>
           <h1 class="score">Score: {{ score }}</h1>
         </div>
-      </section>
-      <section class="right">
+      </div>
+      <div class="right">
         <button class="quitBtn" @click="quitGame">Quit Game</button>
-      </section>
+      </div>
     </header>
     <div class="centered" v-if="!isActive || countdown === 0">
       <Modal
@@ -75,10 +75,9 @@ watch(score, () => {
 <style scoped>
 @import "./assets/base.css";
 .game {
-  position: relative;
-  /* background-color: #64c4ed; */
+  /* background-color: #cbebf5; */
   background: #17b5e9 url(./assets/images/bg.png);
-  padding: 30px;
+  padding: 60px 30px 0px 30px;
 }
 
 .centered {
@@ -97,15 +96,15 @@ watch(score, () => {
 header {
   height: 100px;
   width: 100%;
-  padding: 50px 150px;
+  padding: 40px 150px;
   display: flex;
   justify-content: space-between;
   /* background-color: aliceblue */
 }
-/* .middle {
-  position: absolute;
-  left: 50%;
-} */
+.main {
+  display: flex;
+  justify-content: center;
+}
 
 .score {
   font-size: 2rem;

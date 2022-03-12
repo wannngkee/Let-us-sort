@@ -1,0 +1,51 @@
+.el-input__inner {
+  background-color: transparent;
+  box-shadow: none ;
+  border:solid;
+  border-width: 0 0 3px ;
+  border-radius: 0 ;
+  border-color: #318ce7 ;
+  font-size: 2rem;
+  width: 100px;
+  font-style: italic;
+  font-weight: bolder;
+  caret-color: #318ce7;
+  color: #2975c2;
+}
+
+.el-input__inner:hover, .el-input__inner:focus {
+  box-shadow: none;
+}
+
+
+.el-form-item.is-error .el-input__inner{
+  box-shadow: none;
+  border-color: #f56c6c;
+  caret-color: #f56c6c;
+
+}
+
+.el-form-item.is-error .el-input__inner:focus{
+  box-shadow: none;
+  border-color: #f56c6c;
+  caret-color: #f56c6c;
+
+}
+
+.el-form-item__error{
+  font-size: 10px;
+}
+
+
+.el-button{
+    background-color: #318ce7;
+    border-color: transparent;
+    margin-top:-5px;
+}
+.el-button:hover, .el-button:active, .el-button:focus{
+  transform: translateY(4px);
+  background-color: #318ce7;
+  box-shadow: 0 2px #2975c2;
+  border-color: transparent;
+}
+

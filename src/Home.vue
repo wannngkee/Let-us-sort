@@ -26,6 +26,7 @@
   height: 100vh;
   padding: 50px;
   background-color: #cbebf5;
+  /* background: #17b5e9 url(./assets/images/bg.png); */
 }
 .left {
   padding: 50px;

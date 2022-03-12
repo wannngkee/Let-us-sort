@@ -144,11 +144,12 @@ const onDrop = (event, list) => {
 .container {
   display: flex;
   justify-content: space-between;
+  position: absolute;
 }
 
 .drop-zone {
   width: 15%;
-  margin: 50px auto;
+  padding: 50px auto;
   background: aliceblue;
   border-radius: 0.2rem;
   box-shadow: 0 0.1rem 0.3rem rgb(48 55 66 / 30%);

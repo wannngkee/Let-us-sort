@@ -48,15 +48,14 @@ import Accumulator from "./Accumulator.vue";
 const selected = ref(0);
 const changeSelected = (i) => {
   selected.value = i;
-  // document.getElementsByClassName("select-highlight")[0].style.top =
-  //   i * 50 + 5 + "px";
 };
 window.addEventListener("scroll", () => {
   const sections = document.querySelectorAll("section");
   sections.forEach((sec, index) => {
     const sectionTop = sec.offsetTop;
-    let scrollY = window.pageYOffset;
-    if (scrollY >= sectionTop) {
+    const sectionHeight = sec.clientHeight;
+    const scrollY = window.pageYOffset;
+    if (scrollY >= sectionTop - sectionHeight / 3) {
       selected.value = index;
     }
   });
@@ -102,10 +101,11 @@ header {
   font-style: italic;
 }
 
-#accumulator {
+/* #accumulator {
   height: 100vh;
-}
+} */
 
-.caption {
-}
+/* .section {
+  height: 100vh;
+} */
 </style>
