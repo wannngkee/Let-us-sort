@@ -19,7 +19,7 @@
             1 ton Recycled Plastic ≈ <strong>300</strong> kg Oil
           </h3>
           <h3>
-            <img class="icon" src="./assets/images/glass.png" alt="tree" />
+            <img class="icon" src="./assets/images/glass.png" alt="bottle" />
             1 ton Recycled Glass ≈ <strong>20000</strong> Bottles
           </h3>
         </div>
@@ -100,6 +100,7 @@
 import { ref, reactive } from "vue";
 import { ElInput, ElForm, ElFormItem, ElButton } from "element-plus";
 import "./assets/override.css";
+import axios from "axios";
 const formRef = ref();
 const isClicked = ref(false);
 const money = ref(0);
@@ -111,15 +112,17 @@ const weekly = ref(210);
 const monthly = ref(900);
 
 const getData = () => {
-  fetch("http://168.138.24.134:8082/garbageSort/record/getWeight", {
+  fetch("http://get.vibe.tk/garbageSort/record/getWeight", {
     headers: { "Content-type": "application/json" },
   })
-    .then((res) => res.json())
-    .then((response) => {
-      console.log({ response });
-    })
+    // axios
+    //   .get(
+    //     "https://onboarding-ta27.herokuapp.com/v1/kerbsiderecycleable/findAllKerbsideRecycleable"
+    //   )
+    // .then((res) => res.json())
+    .then((res) => console.log(res))
     .catch((error) => {
-      console.log("Looks like there was a problem: \n", error);
+      console.log(error);
     });
 };
 
@@ -168,6 +171,7 @@ const submitForm = async (formEl) => {
   width: 50%;
   display: flex;
   justify-content: center;
+  flex-direction: column;
 }
 
 .mainPic {
@@ -275,6 +279,7 @@ strong {
   }
   .right {
     width: 100%;
+    flex-direction: column;
   }
 
   .stats {
