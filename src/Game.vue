@@ -76,7 +76,7 @@ watch(score, () => {
 @import "./assets/base.css";
 .game {
   /* background-color: #cbebf5; */
-  background: #17b5e9 url(./assets/images/bg1.png);
+  background: #17b5e9 url(./assets/images/bg.png);
   padding: 60px 30px 0px 30px;
 }
 
