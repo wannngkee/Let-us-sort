@@ -74,21 +74,24 @@
       <div class="stats">
         <div>
           <h3>Today</h3>
-          <h3>
+          <h3 v-if="daily">
             <strong>{{ daily }}</strong> kg
           </h3>
+          <h3 v-else>Loading</h3>
         </div>
         <div>
           <h3>This Week</h3>
-          <h3>
+          <h3 v-if="weekly">
             <strong>{{ weekly }}</strong> kg
           </h3>
+          <h3 v-else>Loading</h3>
         </div>
         <div>
           <h3>This Month</h3>
-          <h3>
-            <strong>{{ monthly }} </strong> kg
+          <h3 v-if="monthly">
+            <strong>{{ monthly }}</strong> kg
           </h3>
+          <h3>Loading</h3>
         </div>
       </div>
       <img class="illustration" src="./assets/images/land.png" />
@@ -107,23 +110,28 @@ const money = ref(0);
 const form = reactive({
   weight: "",
 });
-const daily = ref(30);
-const weekly = ref(210);
-const monthly = ref(900);
+const daily = ref();
+const weekly = ref();
+const monthly = ref();
 
+// to do
+// replace with http://get.vibe.tk/garbageSort/record/getWeight"
 const getData = () => {
-  fetch("http://get.vibe.tk/garbageSort/record/getWeight", {
-    headers: { "Content-type": "application/json" },
-  })
-    // axios
-    //   .get(
-    //     "https://onboarding-ta27.herokuapp.com/v1/kerbsiderecycleable/findAllKerbsideRecycleable"
-    //   )
+  axios
+    .get("http://get.vibe.tk/garbageSort/record/getWeight")
     // .then((res) => res.json())
     .then((res) => console.log(res))
     .catch((error) => {
       console.log(error);
     });
+};
+
+getData();
+
+const sendData = (value) => {
+  axios
+    .post("`http://get.vibe.tk/garbageSort/record/addRecord/${value}`")
+    .then((res) => console.log(res));
 };
 
 const submitForm = async (formEl) => {
@@ -137,7 +145,7 @@ const submitForm = async (formEl) => {
       monthly.value += form.weight;
       console.log("submit!", form.weight);
       // send data here
-      getData();
+      // sendData(form.weight);
     } else {
       console.log("error submit!", fields);
     }
