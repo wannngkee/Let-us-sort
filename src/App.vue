@@ -1,8 +1,8 @@
 <template>
   <body>
-    <header>
+    <header class=".navbar">
       <div class="title">
-        <a href="#home" class="navItem"><h1>Let's sort</h1></a>
+        <a href="#home" class="navItem"><h1>Let's Sort</h1></a>
       </div>
       <div class="nav">
         <a
@@ -37,6 +37,11 @@
     <section id="game">
       <Game />
     </section>
+    <footer>
+      <div>FIT5120, 2022 S1</div>
+      <div>Onboarding Project ©TA31</div>
+      <!-- <div>©TA31</div> -->
+    </footer>
   </body>
 </template>
 
@@ -59,6 +64,17 @@ window.addEventListener("scroll", () => {
       selected.value = index;
     }
   });
+  const top = window.scrollY;
+  const nav = document.querySelector("header");
+  if (top >= 50 && top <= 640) {
+    nav.classList.remove("first", "second");
+    nav.classList.add("first");
+  } else if (top > 640 && top <= 1380) {
+    nav.classList.remove("first", "second");
+    nav.classList.add("second");
+  } else {
+    nav.classList.remove("first", "second");
+  }
 });
 </script>
 
@@ -101,11 +117,51 @@ header {
   font-style: italic;
 }
 
-/* #accumulator {
-  height: 100vh;
-} */
+.first {
+  background-color: #cbebf5;
+  transition: all 0.5s;
+}
 
-/* .section {
-  height: 100vh;
-} */
+.second {
+  background-color: #b9e3fc;
+  transition: all 0.5s;
+}
+footer {
+  margin-top: -52px;
+  font-size: 10px;
+  padding: 10px;
+  /* height: 75px; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* background-color: #cbebf5; */
+  background-color: rgba(203, 235, 245, 40%);
+  /* background: linear-gradient(45deg, #cbebf5 0%, #a1cae2 100%); */
+}
+
+.contactIcon {
+  display: inline-block;
+  margin-top: 2px;
+  margin-left: 8px;
+  margin-right: 8px;
+  font-size: 16px;
+  color: #000;
+}
+
+.contactIcon:hover {
+  color: #eee;
+}
+
+@media (max-width: 1000px) {
+  .nav {
+    width: 50%;
+  }
+}
+
+@media (max-width: 650px) {
+  .nav {
+    flex-direction: column;
+  }
+}
 </style>

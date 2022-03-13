@@ -154,7 +154,7 @@ const onDrop = (event, list) => {
   border-radius: 0.2rem;
   box-shadow: 0 0.1rem 0.3rem rgb(48 55 66 / 30%);
   padding: 10px;
-  height: 30rem;
+  max-height: 480px;
   position: relative;
 }
 
@@ -203,5 +203,15 @@ const onDrop = (event, list) => {
   margin-left: auto;
   margin-right: auto;
   width: 80%;
+}
+
+@media (max-width: 1000px) {
+  .drop-zone {
+    height: 50vw;
+  }
+  .item img {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
 }
 </style>

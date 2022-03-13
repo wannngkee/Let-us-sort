@@ -6,7 +6,7 @@
         <img class="mainPic" src="./assets/images/earth.png" alt="earth" />
         <div class="desc">
           <h2 style="font-weight: bold; margin-bottom: 5px">
-            the Impact We Can Make
+            Impact We Can Make
           </h2>
           <h3>
             <img class="icon" src="./assets/images/tree.png" alt="tree" />
@@ -110,6 +110,19 @@ const daily = ref(30);
 const weekly = ref(210);
 const monthly = ref(900);
 
+const getData = () => {
+  fetch("http://168.138.24.134:8082/garbageSort/record/getWeight", {
+    headers: { "Content-type": "application/json" },
+  })
+    .then((res) => res.json())
+    .then((response) => {
+      console.log({ response });
+    })
+    .catch((error) => {
+      console.log("Looks like there was a problem: \n", error);
+    });
+};
+
 const submitForm = async (formEl) => {
   if (!formEl) return;
   await formEl.validate((valid, fields) => {
@@ -121,6 +134,7 @@ const submitForm = async (formEl) => {
       monthly.value += form.weight;
       console.log("submit!", form.weight);
       // send data here
+      getData();
     } else {
       console.log("error submit!", fields);
     }
@@ -130,7 +144,7 @@ const submitForm = async (formEl) => {
 
 <style scoped>
 .container {
-  background: #a2d5f2;
+  background: #b9e3fc;
   /* height: 100vh; */
   display: flex;
   padding: 50px 80px;
@@ -152,11 +166,13 @@ const submitForm = async (formEl) => {
 }
 .right {
   width: 50%;
-  /* padding: 20px; */
+  display: flex;
+  justify-content: center;
 }
 
 .mainPic {
   width: 8vw;
+  right: 5vw;
   -webkit-animation: spin 6s linear infinite;
   -moz-animation: spin 6s linear infinite;
   animation: spin 6s linear infinite;
@@ -188,7 +204,7 @@ const submitForm = async (formEl) => {
 .bottom {
   display: flex;
   flex-direction: column;
-  margin: 0px 50px 50px;
+  margin: 15px 50px 50px;
   position: relative;
   justify-content: flex-start;
   padding: 0px 50px;
@@ -196,13 +212,14 @@ const submitForm = async (formEl) => {
 
 .stats {
   display: flex;
-  margin-top: 30px;
+  margin-top: 20px;
   justify-content: space-between;
 }
 
 .enter {
   margin-top: 50px;
-  width: 550px;
+  max-width: 550px;
+  min-width: 300px;
 }
 
 .enter h2 {
@@ -247,7 +264,25 @@ strong {
 .illustration {
   width: 25vw;
   position: absolute;
-  right: -5vh;
+  right: -5vw;
   top: -20vh;
+}
+
+@media (max-width: 1000px) {
+  .top {
+    flex-direction: column;
+    padding: 30px 20px;
+  }
+  .right {
+    width: 100%;
+  }
+
+  .stats {
+    width: 90%;
+  }
+  .illustration {
+    top: 0vh;
+    right: -15vw;
+  }
 }
 </style>

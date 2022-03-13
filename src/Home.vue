@@ -54,4 +54,14 @@ button {
   height: 40px;
   width: 120px;
 }
+
+@media (max-width: 750px) {
+  .wrapper {
+    flex-direction: column;
+    padding: 150px 50px 00px 50px;
+  }
+  img {
+    bottom: 120px;
+  }
+}
 </style>

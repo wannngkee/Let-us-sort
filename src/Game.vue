@@ -76,7 +76,7 @@ watch(score, () => {
 @import "./assets/base.css";
 .game {
   /* background-color: #cbebf5; */
-  background: #17b5e9 url(./assets/images/bg.png);
+  background: #17b5e9 url(./assets/images/bg1.png);
   padding: 60px 30px 0px 30px;
 }
 
@@ -94,9 +94,10 @@ watch(score, () => {
 }
 
 header {
-  height: 100px;
+  height: 90px;
   width: 100%;
-  padding: 40px 150px;
+  padding: 0px 150px;
+  margin-bottom: 10px;
   display: flex;
   justify-content: space-between;
   /* background-color: aliceblue */
@@ -113,5 +114,17 @@ header {
 .left {
   margin-top: 25px;
   margin-left: 45px;
+}
+
+@media (max-width: 1000px) {
+  .game {
+    padding: 100px 30px 0px 30px;
+  }
+}
+
+@media (max-width: 800px) {
+  .game {
+    padding: 150px 30px 0px 30px;
+  }
 }
 </style>
