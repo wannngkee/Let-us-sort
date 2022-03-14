@@ -74,24 +74,21 @@
       <div class="stats">
         <div>
           <h3>Today</h3>
-          <h3 v-if="daily">
+          <h3>
             <strong>{{ daily }}</strong> kg
           </h3>
-          <h3 v-else>Loading</h3>
         </div>
         <div>
           <h3>This Week</h3>
-          <h3 v-if="weekly">
+          <h3>
             <strong>{{ weekly }}</strong> kg
           </h3>
-          <h3 v-else>Loading</h3>
         </div>
         <div>
           <h3>This Month</h3>
-          <h3 v-if="monthly">
+          <h3>
             <strong>{{ monthly }}</strong> kg
           </h3>
-          <h3>Loading</h3>
         </div>
       </div>
       <img class="illustration" src="./assets/images/land.png" />
@@ -120,7 +117,12 @@ const getData = () => {
   axios
     .get("http://get.vibe.tk/garbageSort/record/getWeight")
     // .then((res) => res.json())
-    .then((res) => console.log(res))
+    .then((res) => {
+      const data = res.data;
+      daily.value = data.daily;
+      weekly.value = data.weekly;
+      monthly.value = data.monthly;
+    })
     .catch((error) => {
       console.log(error);
     });
@@ -129,9 +131,10 @@ const getData = () => {
 getData();
 
 const sendData = (value) => {
-  axios
-    .post("`http://get.vibe.tk/garbageSort/record/addRecord/${value}`")
-    .then((res) => console.log(res));
+  axios({
+    method: "post",
+    url: "http://get.vibe.tk/garbageSort/record/addRecord/" + value,
+  }).then((res) => console.log(res));
 };
 
 const submitForm = async (formEl) => {
@@ -145,7 +148,7 @@ const submitForm = async (formEl) => {
       monthly.value += form.weight;
       console.log("submit!", form.weight);
       // send data here
-      // sendData(form.weight);
+      sendData(form.weight);
     } else {
       console.log("error submit!", fields);
     }

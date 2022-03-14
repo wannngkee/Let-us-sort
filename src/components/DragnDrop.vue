@@ -109,7 +109,7 @@
 </template>
 
 <script setup>
-import { ref, defineEmits, computed, watch } from "vue";
+import { ref, computed, watch } from "vue";
 import { PRODUCTS, TYPES } from "../utils/data";
 import { shuffle } from "../utils/util";
 const emits = defineEmits(["modifyScore"]);
