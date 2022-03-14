@@ -213,5 +213,8 @@ const onDrop = (event, list) => {
     width: 1.2rem;
     height: 1.2rem;
   }
+  .item {
+    font-size: 0.8rem;
+  }
 }
 </style>

@@ -70,25 +70,27 @@
       </div>
     </div>
     <div class="bottom">
-      <h2 class="subCaption">Total Sorted Waste Weight in VIC</h2>
-      <div class="stats">
-        <div>
-          <h3>Today</h3>
-          <h3>
-            <strong>{{ daily }}</strong> kg
-          </h3>
-        </div>
-        <div>
-          <h3>This Week</h3>
-          <h3>
-            <strong>{{ weekly }}</strong> kg
-          </h3>
-        </div>
-        <div>
-          <h3>This Month</h3>
-          <h3>
-            <strong>{{ monthly }}</strong> kg
-          </h3>
+      <div v-if="daily && monthly && weekly">
+        <h2 class="subCaption">Total Sorted Waste Weight in VIC</h2>
+        <div class="stats">
+          <div>
+            <h3>Today</h3>
+            <h3>
+              <strong>{{ daily }}</strong> kg
+            </h3>
+          </div>
+          <div>
+            <h3>This Week</h3>
+            <h3>
+              <strong>{{ weekly }}</strong> kg
+            </h3>
+          </div>
+          <div>
+            <h3>This Month</h3>
+            <h3>
+              <strong>{{ monthly }}</strong> kg
+            </h3>
+          </div>
         </div>
       </div>
       <img class="illustration" src="./assets/images/land.png" />
@@ -111,11 +113,9 @@ const daily = ref();
 const weekly = ref();
 const monthly = ref();
 
-// to do
-// replace with http://get.vibe.tk/garbageSort/record/getWeight"
 const getData = () => {
   axios
-    .get("http://get.vibe.tk/garbageSort/record/getWeight")
+    .get("https://get.vibe.tk/garbageSort/record/getWeight")
     // .then((res) => res.json())
     .then((res) => {
       const data = res.data;
@@ -133,7 +133,7 @@ getData();
 const sendData = (value) => {
   axios({
     method: "post",
-    url: "http://get.vibe.tk/garbageSort/record/addRecord/" + value,
+    url: "https://get.vibe.tk/garbageSort/record/addRecord/" + value,
   }).then((res) => console.log(res));
 };
 
@@ -279,7 +279,7 @@ strong {
 .illustration {
   width: 25vw;
   position: absolute;
-  right: -5vw;
+  left: 60vw;
   top: -20vh;
 }
 
@@ -291,14 +291,25 @@ strong {
   .right {
     width: 100%;
     flex-direction: column;
+    align-items: center;
+  }
+
+  .bottom {
+    margin: ;
   }
 
   .stats {
     width: 90%;
   }
-  .illustration {
-    top: 0vh;
-    right: -15vw;
+}
+
+@media (max-width: 700px) {
+  .stats {
+    width: 90%;
+    flex-direction: column;
+  }
+  .bottom {
+    padding: 0;
   }
 }
 </style>
