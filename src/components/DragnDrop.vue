@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-    <!-- <span>{{currentScore}}</span> -->
     <div
       class="drop-zone"
       id="bench"
@@ -128,14 +127,48 @@ const startDrag = (event, item) => {
   event.dataTransfer.effectAllowed = "move";
   event.dataTransfer.setData("itemID", item.id);
 };
+const bestType = (items) => {
+  if (items.length === 0) {
+    return null;
+  }
+  const count = { recycle: 0, landfill: 0, organic: 0, glass: 0 };
+  items.forEach((item) => {
+    switch (item.type) {
+      case "green":
+        count.organic += 1;
+        break;
+      case "yellow":
+        count.recycle += 1;
+        break;
+      case "red":
+        count.landfill += 1;
+        break;
+      case "purple":
+        count.glass += 1;
+    }
+  });
+  let maxKey,
+    maxValue = 0;
+
+  for (const [key, value] of Object.entries(count)) {
+    if (value > maxValue) {
+      maxValue = value;
+      maxKey = key;
+    }
+  }
+  return maxKey;
+};
+
 const onDrop = (event, list) => {
   const itemID = event.dataTransfer.getData("itemID");
   const item = items.value.find((item) => item.id == itemID);
   item.list = list;
-  const currentScore = items.value
-    .filter((item) => item.type === item.list)
-    .reduce((sum, record) => sum + 5, 0);
-  emits("modifyScore", currentScore);
+  const matchedItem = items.value.filter((item) => item.type === item.list);
+  const currentScore = matchedItem.reduce((sum, record) => sum + 5, 0);
+  const best = bestType(matchedItem);
+  console.log(best);
+
+  emits("modifyScore", currentScore, best);
 };
 </script>
 
@@ -154,7 +187,7 @@ const onDrop = (event, list) => {
   border-radius: 0.2rem;
   box-shadow: 0 0.1rem 0.3rem rgb(48 55 66 / 30%);
   padding: 10px;
-  max-height: 480px;
+  height: 480px;
   position: relative;
 }
 
@@ -207,7 +240,7 @@ const onDrop = (event, list) => {
 
 @media (max-width: 1000px) {
   .drop-zone {
-    height: 50vw;
+    height: 45vw;
   }
   .item img {
     width: 1.2rem;
@@ -215,6 +248,12 @@ const onDrop = (event, list) => {
   }
   .item {
     font-size: 0.8rem;
+  }
+}
+
+@media (max-height: 700px) {
+  .drop-zone {
+    height: 60vh;
   }
 }
 </style>

@@ -10,7 +10,8 @@
         </div>
       </div>
       <div class="right">
-        <button class="quitBtn" @click="quitGame">Quit Game</button>
+        <button class="quitBtn" @click="knowGame"><h5>How to Play</h5></button>
+        <button class="quitBtn" @click="quitGame"><h5>Quit Game</h5></button>
       </div>
     </header>
     <div class="centered" v-if="!isActive || countdown === 0">
@@ -18,6 +19,7 @@
         :isGameComplete="isGameComplete"
         :countdown="countdown"
         :score="score"
+        :bestType="bestType"
         @toggleStart="toggleStart"
       />
     </div>
@@ -31,13 +33,15 @@
 import { ref, computed, watch } from "vue";
 import Modal from "./components/Modal.vue";
 import DragnDrop from "./components/DragnDrop.vue";
-let isActive = ref(false);
-let countdown = ref(60);
-let isGameComplete = ref(false);
-let score = ref(0);
+const isActive = ref(false);
+const countdown = ref(60);
+const isGameComplete = ref(false);
+const score = ref(0);
+const bestType = ref();
 const toggleStart = () => {
   isActive.value = !isActive.value;
   score.value = 0;
+  bestType.value = null;
   countdownTimer();
 };
 const countdownTimer = () => {
@@ -57,11 +61,18 @@ const countdownTimer = () => {
 const quitGame = () => {
   countdown.value = 60;
   isActive.value = false;
+  isGameComplete.value = true;
+};
+
+const knowGame = () => {
+  countdown.value = 60;
+  isActive.value = false;
   isGameComplete.value = false;
 };
 
-const modifyScore = (val) => {
+const modifyScore = (val, type) => {
   score.value = val;
+  bestType.value = type;
 };
 
 watch(score, () => {
@@ -75,7 +86,6 @@ watch(score, () => {
 <style scoped>
 @import "./assets/base.css";
 .game {
-  /* background-color: #cbebf5; */
   background: #17b5e9 url(./assets/images/bg.png);
   padding: 60px 30px 0px 30px;
 }
@@ -89,7 +99,7 @@ watch(score, () => {
 
 .quitBtn {
   display: block;
-  margin-top: 25px;
+  margin: 25px 8px 0;
   height: 30px;
 }
 
@@ -114,6 +124,10 @@ header {
 .left {
   margin-top: 25px;
   margin-left: 45px;
+}
+
+.right {
+  display: flex;
 }
 
 @media (max-width: 1000px) {

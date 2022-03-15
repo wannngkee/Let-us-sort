@@ -1,8 +1,27 @@
 <template>
   <div class="card">
     <div class="title" v-if="isGameComplete">
-      <h1>Great Work</h1>
-      <h4>Score: {{ props.score }}</h4>
+      <div v-if="props.score === 100">
+        <h1>Great Work</h1>
+        <h4>Score: 100</h4>
+        <h4>You nailed it</h4>
+      </div>
+      <div v-else>
+        <h1>Score: {{ props.score }}</h1>
+        <h6 style="padding: 10px 0px" v-if="bestType">
+          You are good at sorting
+          <span style="font-weight: bold">{{ props.bestType }}</span> garbage
+        </h6>
+        <h6 style="padding: 5px 0px">
+          Check
+          <a
+            href="https://www.melbourne.vic.gov.au/residents/waste-recycling/Pages/a-z-waste-disposal.aspx"
+            target="_blank"
+            ><mark>this guide</mark></a
+          >
+          to sort <span v-if="bestType">other</span> garbage better
+        </h6>
+      </div>
     </div>
     <div class="title" v-else>
       <h1>Sort Smart</h1>
@@ -23,6 +42,7 @@ const props = defineProps({
   countdown: Number,
   isGameComplete: Boolean,
   score: Number,
+  bestType: String,
 });
 const emits = defineEmits(["toggleStart"]);
 const handleClick = () => {
@@ -70,5 +90,11 @@ h1 {
   text-shadow: 0px 0px 2px #222222;
   text-align: center;
   text-shadow: 2px 1px 0 #222, 3px 3px 0 #222, -2px 1px 0 #222, 1px -1px 0 #222;
+}
+
+mark {
+  background-color: transparent;
+  box-shadow: inset 0px -2px 0 #5ca0d3;
+  color: #2c3e50;
 }
 </style>

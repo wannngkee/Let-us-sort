@@ -63,8 +63,12 @@
         <div class="response" v-if="isClicked">
           <h3>Thank you for the effort you have contributed!</h3>
           <h3>
-            The waste you sorted helps save <strong>${{ money }}</strong> in
-            reproducing.
+            The waste you sorted helps save <strong>${{ money }}</strong
+            >.
+          </h3>
+          <h3>
+            Now, let's play a game and chill.
+            <a href="#game"> <button>Go</button></a>
           </h3>
         </div>
       </div>
@@ -229,10 +233,11 @@ const submitForm = async (formEl) => {
   display: flex;
   margin-top: 20px;
   justify-content: space-between;
+  width: 55%;
 }
 
 .enter {
-  margin-top: 50px;
+  margin-top: 30px;
   max-width: 550px;
   min-width: 300px;
 }
@@ -272,15 +277,11 @@ strong {
   line-height: 40px;
 }
 
-.stats {
-  width: 45%;
-}
-
 .illustration {
-  width: 25vw;
+  width: 23vw;
   position: absolute;
   left: 60vw;
-  top: -20vh;
+  top: -16vh;
 }
 
 @media (max-width: 1000px) {
